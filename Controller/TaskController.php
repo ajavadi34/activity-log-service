@@ -9,26 +9,29 @@ $start_time = microtime(true);
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
     $table = new Table();
+    $taskData = new TaskData();
 
     if(!empty($_GET['Id']))
     {
         //return single task
-        $taskData = new TaskData();
         $table->rows = $taskData->getTask($_GET['Id']);
     }
     else if (!empty($_GET['Type']))
     {
         //return specific task type
-        $taskData = new TaskData();
         $table->rows = $taskData->getTaskType($_GET['Type']); //passes typeid to get specific type
     }
     else
     {
         //return all tasks
-        $taskData = new TaskData();
         $table->rows = $taskData->getAllTasks();
     }
 
+    //set results details
+    $table->totalRows = count($table->rows);
+    //filter to page
+    $table->pageNumber = !empty($_GET['PageNumber']) ? $_GET['PageNumber'] : 1;
+    $table->rows = array_slice($table->rows, ($table->pageSize * ($table->pageNumber - 1)), $table->pageSize);
     $table->exec_time = round(microtime(true) - $start_time, 4);
 
     echo json_encode($table);
@@ -111,11 +114,15 @@ class Table {
     public $headers; //grid column names
     public $rows; //array of tasks
     public $exec_time;
+    public $totalRows;
+    public $pageSize;
+    public $pageNumber;
 
     public function __construct() {
         $task = new TaskData();
         $this->types = $task->getAllTaskTypes();
         $this->headers = [" ", "Type", "Title", "Description", "Date", ""];
+        $this->pageSize = 50;
     }
 
     public static function isArgsValid($required, $data) {
