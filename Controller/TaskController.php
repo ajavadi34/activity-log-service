@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     //set results details
     $table->totalRows = count($table->rows);
     //filter to page
-    $table->pageNumber = !empty($_GET['PageNumber']) ? $_GET['PageNumber'] : 1;
+    $table->pageNumber = !empty($_GET['PageNumber']) ? (int)$_GET['PageNumber'] : 1;
     $table->rows = array_slice($table->rows, ($table->pageSize * ($table->pageNumber - 1)), $table->pageSize);
     $table->exec_time = round(microtime(true) - $start_time, 4);
 
