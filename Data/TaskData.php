@@ -97,6 +97,26 @@ class TaskData implements iTask {
         }
     }
 
+    //Task Type functions
+    public function insertTaskType($taskTypeName) {
+        $query = "CALL sp_TaskType_Insert('" . $taskTypeName . "')";
+        $this->mapDataToTaskType($query);
+        return $this->taskTypes;
+    }
+
+    public function updateTaskType($taskType) {
+        $query = "CALL sp_TaskType_Update(" . $taskType->TypeId . ",'" . $taskType->Name . "')";
+        
+        if (!$result = mysqli_query($this->db_conn, $query))
+        {
+            echo json_encode("Error: " . mysqli_error($this->db_conn));
+        }
+        else
+        {
+            //Successful
+        }
+    }
+
     //Maps data from mysql to Task object
     private function mapDataToTasks($query) {
         $response = mysqli_query($this->db_conn, $query);

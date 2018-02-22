@@ -42,7 +42,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'PUT')
     $data = json_decode(file_get_contents('php://input'), true);
 
     //Array of required post fields
-    $required = array('Id', 'Title', 'Description', 'Date');
+    $required = array('Id', 'Title', 'Date');
 
     if ($result = Table::isArgsValid($required, $data))
     {
@@ -68,7 +68,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $data = json_decode(file_get_contents('php://input'), true);
 
     //Array of required post fields
-    $required = array('TypeId', 'Title', 'Description', 'Date');
+    $required = array('TypeId', 'Title', 'Date');
 
     if (Table::isArgsValid($required, $data))
     {
