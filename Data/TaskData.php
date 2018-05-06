@@ -123,7 +123,7 @@ class TaskData implements iTask {
 
         if (!$response){
             //Error
-            return mysqli_error($this->db_conn);
+            echo mysqli_error($this->db_conn);
         }
         else
         {
@@ -150,7 +150,7 @@ class TaskData implements iTask {
 
         if (!$response){
             //Error
-            return mysqli_error($this->db_conn);
+            echo mysqli_error($this->db_conn);
         }
         else
         {
