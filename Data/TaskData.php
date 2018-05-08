@@ -99,13 +99,18 @@ class TaskData implements iTask {
 
     //Task Type functions
     public function insertTaskType($taskTypeName) {
-        $query = "CALL sp_TaskType_Insert('" . $taskTypeName . "')";
+        $safeTaskTypeName = mysqli_real_escape_string($this->db_conn, $taskTypeName);
+        
+        $query = "CALL sp_TaskType_Insert('" . $safeTaskTypeName . "')";
         $this->mapDataToTaskType($query);
         return $this->taskTypes;
     }
 
     public function updateTaskType($taskType) {
-        $query = "CALL sp_TaskType_Update(" . $taskType->TypeId . ",'" . $taskType->Name . "')";
+        $safeTypeId = mysqli_real_escape_string($this->db_conn, $taskType->TypeId);
+        $safeName = mysqli_real_escape_string($this->db_conn, $taskType->Name);
+
+        $query = "CALL sp_TaskType_Update(" . $safeTypeId . ",'" . $safeName . "')";
         
         if (!$result = mysqli_query($this->db_conn, $query))
         {
