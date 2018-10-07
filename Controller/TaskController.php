@@ -55,6 +55,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'PUT')
         $task->Id = $data['Id'];
         $task->Title = trim($data['Title']);
         $task->Description = trim($data['Description']);
+        $task->Link = trim($data['Link']);
         $task->Date = date('Y/m/d', strtotime($data['Date']));
 
         $taskData = new TaskData();
@@ -81,6 +82,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $task->TypeId = $data['TypeId'];
         $task->Title = trim($data['Title']);
         $task->Description = trim($data['Description']);
+        $task->Link = trim($data['Link']);
         $task->Date = date('Y/m/d', strtotime($data['Date']));
 
         $taskData = new TaskData();
@@ -121,7 +123,7 @@ class Table {
     public function __construct() {
         $task = new TaskData();
         $this->types = $task->getAllTaskTypes();
-        $this->headers = [" ", "Type", "Title", "Description", "Date", ""];
+        $this->headers = [" ", "Type", "Title", "Description", "Link", "Date", ""];
         $this->pageSize = 50;
     }
 

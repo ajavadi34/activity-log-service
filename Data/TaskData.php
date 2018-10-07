@@ -57,7 +57,7 @@ class TaskData implements iTask {
     public function insertTask($task){
         $task = $this->escapeTaskParams($task);
 
-        $query = "CALL sp_Task_Insert('" . $task->Title . "','" . $task->Description . "','" . $task->Date . "','" . $task->TypeId. "')";
+        $query = "CALL sp_Task_Insert('" . $task->Title . "','" . $task->Description . "','" . $task->Link . "','" . $task->Date . "','" . $task->TypeId. "')";
         
         if (!$result = mysqli_query($this->db_conn, $query))
         {
@@ -72,7 +72,7 @@ class TaskData implements iTask {
     public function updateTask($task){
         $task = $this->escapeTaskParams($task);
         
-        $query = "CALL sp_Task_Update(" . $task->Id . ",'" . $task->Title . "','" . $task->Description . "','" . $task->Date . "')";
+        $query = "CALL sp_Task_Update(" . $task->Id . ",'" . $task->Title . "','" . $task->Description . "','" . $task->Link . "','" . $task->Date . "')";
 
         if (!$result = mysqli_query($this->db_conn, $query))
         {
@@ -176,6 +176,7 @@ class TaskData implements iTask {
         $task->Id = mysqli_real_escape_string($this->db_conn, $task->Id);
         $task->Title = mysqli_real_escape_string($this->db_conn, $task->Title);
         $task->Description = mysqli_real_escape_string($this->db_conn, $task->Description);
+        $task->Link = mysqli_real_escape_string($this->db_conn, $task->Link);
         $task->Date = mysqli_real_escape_string($this->db_conn, $task->Date);
 
         return $task;
