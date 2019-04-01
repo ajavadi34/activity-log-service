@@ -97,6 +97,19 @@ class TaskData implements iTask {
         }
     }
 
+    public function deleteTaskType($typeId){
+        $query = "CALL sp_TaskType_Delete(" . $typeId . ")";
+
+        if (!$result = mysqli_query($this->db_conn, $query))
+        {
+            echo json_encode("Error: " . mysqli_error($this->db_conn));
+        }
+        else
+        {
+            //Successful
+        }
+    }
+
     //Task Type functions
     public function insertTaskType($taskTypeName) {
         $safeTaskTypeName = mysqli_real_escape_string($this->db_conn, $taskTypeName);

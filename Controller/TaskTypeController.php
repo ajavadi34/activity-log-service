@@ -52,6 +52,26 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST')
         echo json_encode($newType);
     }
 }
+else if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
+{
+    //Gets json post and converts to array
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    //Array of required post fields
+    $required = array('Id');
+
+    if ($result = Table::isArgsValid($required, $data))
+    {
+        echo json_encode("Invalid Delete"); //error message
+        exit(); //stops script
+    }
+    else
+    {
+        $taskData = new TaskData();
+        $taskData->deleteTaskType($data['Id']);
+        echo json_encode("Delete Successful");
+    }
+}
 
 class Table {
     public $types; //types of logs

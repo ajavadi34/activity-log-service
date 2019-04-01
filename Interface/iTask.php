@@ -16,7 +16,7 @@
 
         //Delete
         public function deleteTask($taskId);
-
+        public function deleteTaskType($taskId);
     }
     
 ?>
