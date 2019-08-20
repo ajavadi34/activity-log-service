@@ -6,7 +6,13 @@ require_once("../Data/TaskData.php");
 //Helps captures script execution time in seconds
 $start_time = microtime(true);
 
-if ($_SERVER['REQUEST_METHOD'] == 'PUT')
+if ($_SERVER['REQUEST_METHOD'] == 'GET')
+{
+    $taskData = new TaskData();
+    $taskTypes = $taskData->getAllTaskTypes();
+    echo json_encode($taskTypes);
+}
+else if ($_SERVER['REQUEST_METHOD'] == 'PUT')
 {
     //Gets json post and converts to array
     $data = json_decode(file_get_contents('php://input'), true);
