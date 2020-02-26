@@ -113,7 +113,6 @@ else if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
 
 class Table {
     public $types; //types of logs
-    public $headers; //grid column names
     public $rows; //array of tasks
     public $exec_time;
     public $totalRows;
@@ -123,7 +122,6 @@ class Table {
     public function __construct() {
         $task = new TaskData();
         $this->types = $task->getAllTaskTypes();
-        $this->headers = [" ", "Type", "Title", "Description", "Link", "Date", ""];
         $this->pageSize = 50;
     }
 
